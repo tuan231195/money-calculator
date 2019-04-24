@@ -1,0 +1,12 @@
+<select
+  class="ui fluid search dropdown"
+  [name]="name"
+  tabindex="0"
+  multiple
+  [attr.multiple]="allowMultiple ? '' : null"
+  [(ngModel)]="value"
+>
+  <option *ngFor="let option of options" [value]="option.name">{{
+    option.name
+  }}</option>
+</select>

@@ -1,0 +1,54 @@
+<h3>Cost</h3>
+<table class="ui collapsing celled table">
+  <thead>
+    <tr>
+      <th>Payer</th>
+      <th *ngFor="let person of people">
+        <div class="ui input mini">
+          <input type="text" placeholder="Person" [(ngModel)]="person.name" />
+        </div>
+      </th>
+      <th>
+        <button
+          class="ui labeled primary icon button mini"
+          (click)="addPerson()"
+        >
+          <i class="user plus icon"></i>
+          Add person
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let category of categories">
+      <td>
+        <app-select
+          [name]="payer"
+          [(ngModel)]="category.payer"
+          [options]="[{ name: 1, value: 1}, { name: 2, value: 2}]"
+        ></app-select>
+      </td>
+      <td *ngFor="let person of people">
+        <div class="ui checkbox">
+          <input type="checkbox" [(ngModel)]="category.payee[person.name]" />
+        </div>
+      </td>
+      <td>
+        <button class="ui icon button">
+          <i class="remove icon" (click)="removePerson(person)"></i>
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="*">
+        <button
+          class="ui labeled primary icon button mini"
+          (click)="addCategory()"
+        >
+          <i class="money bill alternate icon"></i>
+          Add category
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

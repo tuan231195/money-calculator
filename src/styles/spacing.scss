@@ -1,0 +1,31 @@
+@each $dimen in (3 5 8 10 20 30 40 50) {
+  @each $side in (top right bottom left) {
+    .marg-#{$side}-#{$dimen} {
+      margin-#{$side}: #{$dimen}px;
+    }
+
+    .pad-#{$side}-#{$dimen} {
+      padding-#{$side}: #{$dimen}px;
+    }
+  }
+
+  .marg-horiz-#{$dimen} {
+    margin-left: #{$dimen}px;
+    margin-right: #{$dimen}px;
+  }
+
+  .marg-vert-#{$dimen} {
+    margin-top: #{$dimen}px;
+    margin-bottom: #{$dimen}px;
+  }
+
+  .pad-horiz-#{$dimen} {
+    padding-left: #{$dimen}px;
+    padding-right: #{$dimen}px;
+  }
+
+  .pad-vert-#{$dimen} {
+    padding-top: #{$dimen}px;
+    padding-bottom: #{$dimen}px;
+  }
+}
