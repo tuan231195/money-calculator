@@ -1,5 +1,9 @@
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { forwardRef, Provider } from '@angular/core';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NgModel,
+} from '@angular/forms';
+import { forwardRef, Provider, Self } from '@angular/core';
 
 export abstract class AbstractValueAccessor<T> implements ControlValueAccessor {
   isDisabled: boolean;
@@ -7,15 +11,15 @@ export abstract class AbstractValueAccessor<T> implements ControlValueAccessor {
   onTouched = () => {};
   _value: T;
 
+  constructor() {}
+
   get value() {
     return this._value;
   }
 
   set value(value: T) {
     if (value !== this._value) {
-      this._value = value;
-      this.onValueUpdated(value);
-      this.onChange(value);
+      this.writeValue(value);
     }
   }
 
@@ -36,7 +40,7 @@ export abstract class AbstractValueAccessor<T> implements ControlValueAccessor {
     this.onDisabled(isDisabled);
   }
 
-  onDisabled(_){}
+  onDisabled(_) {}
 
   onValueUpdated(_) {}
 }

@@ -2,10 +2,17 @@
 <table class="ui collapsing celled table">
   <thead>
     <tr>
+      <th>Name</th>
       <th>Payer</th>
-      <th *ngFor="let person of people">
-        <div class="ui input mini">
-          <input type="text" placeholder="Person" [(ngModel)]="person.name" />
+      <th>Amount</th>
+      <th *ngFor="let person of (people$ | async)">
+        <div class="ui input mini" [ngClass]="{ error: !person.name.length }">
+          <input
+            type="text"
+            placeholder="Person"
+            [(ngModel)]="person.name"
+            (blur)="editPerson(person)"
+          />
         </div>
       </th>
       <th>
@@ -22,25 +29,53 @@
   <tbody>
     <tr *ngFor="let category of categories">
       <td>
-        <app-select
-          [name]="payer"
-          [(ngModel)]="category.payer"
-          [options]="[{ name: 1, value: 1}, { name: 2, value: 2}]"
-        ></app-select>
-      </td>
-      <td *ngFor="let person of people">
-        <div class="ui checkbox">
-          <input type="checkbox" [(ngModel)]="category.payee[person.name]" />
+        <div class="ui input mini" [ngClass]="{ error: !category.name.length }">
+          <input
+            type="text"
+            placeholder="Category"
+            [(ngModel)]="category.name"
+            (blur)="editCategory(category)"
+          />
         </div>
       </td>
       <td>
-        <button class="ui icon button">
-          <i class="remove icon" (click)="removePerson(person)"></i>
+        <app-select
+          [name]="payer"
+          [(ngModel)]="category.payerId"
+          (ngModelChange)="editCategory(category)"
+          [options]="payerOptions"
+          [required]="true"
+          [placeholder]="'None'"
+        ></app-select>
+      </td>
+      <td>
+        <div class="ui input mini" [ngClass]="{ error: category.amount <= 0 }">
+          <input
+            type="number"
+            placeholder="0.00"
+            [(ngModel)]="category.amount"
+            (blur)="editCategory(category)"
+          />
+        </div>
+      </td>
+      <td *ngFor="let person of (people$ | async)">
+        <input
+          type="checkbox"
+          [(ngModel)]="category.payee[person.id]"
+          (ngModelChange)="editCategory(category)"
+        />
+      </td>
+      <td>
+        <button
+          (click)="removeCategory(category)"
+          class="ui negative icon button mini"
+        >
+          <i class="remove icon"></i>
         </button>
       </td>
     </tr>
     <tr>
-      <td colspan="*">
+      <td>
         <button
           class="ui labeled primary icon button mini"
           (click)="addCategory()"
@@ -49,6 +84,18 @@
           Add category
         </button>
       </td>
+      <td></td>
+      <td></td>
+      <td *ngFor="let person of (people$ | async)">
+        <button
+          *ngIf="canRemove(person)"
+          (click)="removePerson(person)"
+          class="ui negative icon button mini"
+        >
+          <i class="remove icon"></i>
+        </button>
+      </td>
+      <td></td>
     </tr>
   </tbody>
 </table>

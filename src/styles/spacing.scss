@@ -1,4 +1,4 @@
-@each $dimen in (3 5 8 10 20 30 40 50) {
+@each $dimen in (3 5 8 10 20 30 40 50 60 70 80 90 100) {
   @each $side in (top right bottom left) {
     .marg-#{$side}-#{$dimen} {
       margin-#{$side}: #{$dimen}px;
@@ -7,6 +7,22 @@
     .pad-#{$side}-#{$dimen} {
       padding-#{$side}: #{$dimen}px;
     }
+  }
+
+  .min-width-#{$dimen} {
+    min-width: #{$dimen}px;
+  }
+
+  .min-height-#{$dimen} {
+    min-width: #{$dimen}px;
+  }
+
+  .max-height-#{$dimen} {
+    min-width: #{$dimen}px;
+  }
+
+  .max-width-#{$dimen} {
+    min-width: #{$dimen}px;
   }
 
   .marg-horiz-#{$dimen} {

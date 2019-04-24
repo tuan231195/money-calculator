@@ -7,6 +7,7 @@ import { CostComponent } from './cost/cost.component';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
+import { reducers } from './reducers';
 
 @NgModule({
   declarations: [AppComponent, CostComponent],

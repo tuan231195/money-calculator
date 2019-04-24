@@ -1,6 +1,8 @@
-export interface Category {
-    payer: string,
-    payee: object,
-    name: string,
-    amount: number,
+import { IPerson } from './person';
+export interface ICategory {
+  payerId: number,
+  payee: object;
+  name: string;
+  amount: number;
+  id?: number;
 }

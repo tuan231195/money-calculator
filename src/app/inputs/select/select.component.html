@@ -1,12 +1,18 @@
-<select
-  class="ui fluid search dropdown"
-  [name]="name"
-  tabindex="0"
-  multiple
-  [attr.multiple]="allowMultiple ? '' : null"
-  [(ngModel)]="value"
+<div
+  style="min-width: 100px"
+  class="ui fluid search selection dropdown"
+  [ngClass]="{ multiple: allowMultiple, error: hasError() }"
 >
-  <option *ngFor="let option of options" [value]="option.name">{{
-    option.name
-  }}</option>
-</select>
+  <i class="dropdown icon"></i>
+  <input class="search" />
+  <div class="default text">{{ placeholder }}</div>
+  <div class="menu">
+    <div
+      class="item"
+      [attr.data-value]="option.value"
+      *ngFor="let option of options"
+    >
+      {{ option.name }}
+    </div>
+  </div>
+</div>
