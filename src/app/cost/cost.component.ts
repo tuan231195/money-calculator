@@ -12,6 +12,8 @@ import {
 } from '../actions/category';
 import { Observable, Subscription } from 'rxjs';
 import { IPerson } from '../model/person';
+import { getPaymentState } from '../actions/payment';
+import { IPayment } from '../model/payment';
 
 @Component({
   selector: 'app-cost',
@@ -24,11 +26,16 @@ export class CostComponent implements OnInit, OnDestroy {
   payerOptions: { name: string; value: number }[];
   categories: ICategory[];
   categoriesSubscription: Subscription;
+  payments$: Observable<IPayment[]>;
+
+  paymentSubscription: Subscription;
+  payments: IPayment[];
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.people$ = this.store.select(getPeopleState);
     this.categories$ = this.store.select(getCategoryState);
+    this.payments$ = this.store.select(getPaymentState);
 
     this.peopleSubscription = this.people$.subscribe(people => {
       this.payerOptions = people.map(person => ({
@@ -39,6 +46,10 @@ export class CostComponent implements OnInit, OnDestroy {
 
     this.categoriesSubscription = this.categories$.subscribe(categories => {
       this.categories = categories;
+    });
+
+    this.paymentSubscription = this.payments$.subscribe(payments => {
+      this.payments = payments;
     });
   }
 
@@ -87,7 +98,23 @@ export class CostComponent implements OnInit, OnDestroy {
   }
 
   canRemove(person) {
-    return !this.categories.some(category => category.payerId === person.id);
+    const isPayer = this.categories.some(
+      category => category.payerId === person.id
+    );
+    if (isPayer) {
+      return false;
+    }
+
+    const hasUpfrontPayment = this.payments.some(
+      payment =>
+        payment.receiverId === person.id ||
+        payment.senderIds.includes(person.id)
+    );
+
+    if (hasUpfrontPayment) {
+      return false;
+    }
+    return true;
   }
 
   addCategory() {
