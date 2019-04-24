@@ -1,6 +1,6 @@
-import { IPerson } from './person';
+import { ICategory } from './category';
 export interface ICategory {
-  payerId: number,
+  payerId: number;
   payee: object;
   name: string;
   amount: number;

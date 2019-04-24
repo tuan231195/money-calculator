@@ -38,8 +38,17 @@ export class SelectComponent extends AbstractValueAccessor<string[] | string>
   ngAfterViewInit() {
     this.select = $(this.elementRef.nativeElement).find('.ui.dropdown');
     this.select.dropdown({
-      onChange: value => {
-        this.value = value;
+      onChange: selectedValue => {
+        if (Array.isArray(selectedValue)) {
+          this.value = this.options
+            .map(option => option.value)
+            .filter(value => selectedValue.includes(value));
+        } else {
+          const foundOption = this.options.find(
+            option => option.value == selectedValue
+          );
+          this.value = foundOption ? foundOption.value : null;
+        }
       },
     });
   }

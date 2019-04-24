@@ -64,8 +64,23 @@
           [(ngModel)]="category.payee[person.id]"
           (ngModelChange)="editCategory(category)"
         />
+        <label class="marg-left-10">{{
+          getAmount(category, person) | currency
+        }}</label>
       </td>
       <td>
+        <button
+          (click)="tickCategory(category)"
+          class="ui positive icon button mini"
+        >
+          <i class="check square icon"></i>
+        </button>
+        <button
+          (click)="untickCategory(category)"
+          class="ui secondary icon button mini"
+        >
+          <i class="check square outline icon"></i>
+        </button>
         <button
           (click)="removeCategory(category)"
           class="ui negative icon button mini"

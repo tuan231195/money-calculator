@@ -22,7 +22,7 @@ export class CostComponent implements OnInit, OnDestroy {
   people$: Observable<IPerson[]>;
   categories$: Observable<ICategory[]>;
   peopleSubscription: Subscription;
-  payerOptions: { name: string, value: number }[];
+  payerOptions: { name: string; value: number }[];
   categories: ICategory[];
   categoriesSubscription: Subscription;
   constructor(private store: Store<AppState>) {}
@@ -48,8 +48,35 @@ export class CostComponent implements OnInit, OnDestroy {
     this.categoriesSubscription.unsubscribe();
   }
 
+  getAmount(category, person) {
+    const numPayee = Object.values(category.payee).filter(value => value)
+      .length;
+    if (!numPayee) {
+      return 0;
+    }
+    if (!category.payee[person.id]) {
+      return 0;
+    }
+    return category.amount / numPayee;
+  }
   addPerson() {
     this.store.dispatch(new AddPerson());
+  }
+
+  tickCategory(category) {
+    this.payerOptions.forEach(({ value }) => {
+      category.payee[value] = true;
+    });
+
+    this.store.dispatch(new EditCategory(category));
+  }
+
+  untickCategory(category) {
+    this.payerOptions.forEach(({ value }) => {
+      category.payee[value] = false;
+    });
+
+    this.store.dispatch(new EditCategory(category));
   }
 
   editPerson(person) {

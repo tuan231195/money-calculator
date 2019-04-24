@@ -6,7 +6,7 @@ export const actions = {
   ADD_CATEGORY: 'add_category',
   DELETE_CATEGORY: 'delete_category',
   EDIT_CATEGORY: 'edit_category',
-}
+};
 
 export class AddCategory implements Action {
   readonly type = actions.ADD_CATEGORY;
@@ -20,9 +20,10 @@ export class DeleteCategory implements Action {
 
 export class EditCategory implements Action {
   readonly type = actions.EDIT_CATEGORY;
-  constructor(public category: ICategory ) {}
+  constructor(public category: ICategory) {}
 }
 
 export type Actions = AddCategory | DeleteCategory;
 
-export const getCategoryState = (state: AppState) => state.categories;
+export const getCategoryState: (state: AppState) => ICategory[] = state =>
+  state.categories;
