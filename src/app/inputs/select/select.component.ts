@@ -1,24 +1,14 @@
 /// <reference types="jquery" />
 /// <reference types="semantic-ui" />
-import {
-  Component,
-  Input,
-  AfterViewInit,
-  ElementRef,
-  OnChanges,
-  DoCheck,
-  Self,
-} from '@angular/core';
+import { Component, Input, AfterViewInit, ElementRef } from '@angular/core';
 import {
   makeValueAccessor,
   AbstractValueAccessor,
 } from 'src/app/core/inputs/abstract-value-accessor';
-import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
   providers: [makeValueAccessor(SelectComponent)],
 })
 export class SelectComponent extends AbstractValueAccessor<string[] | string>
@@ -38,14 +28,17 @@ export class SelectComponent extends AbstractValueAccessor<string[] | string>
   ngAfterViewInit() {
     this.select = $(this.elementRef.nativeElement).find('.ui.dropdown');
     this.select.dropdown({
-      onChange: selectedValue => {
-        if (Array.isArray(selectedValue)) {
+      onChange: valueStr => {
+        if (this.allowMultiple) {
+          const selectedValues = valueStr.split(',');
           this.value = this.options
             .map(option => option.value)
-            .filter(value => selectedValue.includes(value));
+            .filter(value =>
+              selectedValues.some(selectedValue => selectedValue == value)
+            );
         } else {
           const foundOption = this.options.find(
-            option => option.value == selectedValue
+            option => option.value == valueStr
           );
           this.value = foundOption ? foundOption.value : null;
         }

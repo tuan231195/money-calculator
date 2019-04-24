@@ -16,7 +16,6 @@ import { IPerson } from '../model/person';
 @Component({
   selector: 'app-cost',
   templateUrl: './cost.component.html',
-  styleUrls: ['./cost.component.scss'],
 })
 export class CostComponent implements OnInit, OnDestroy {
   people$: Observable<IPerson[]>;
