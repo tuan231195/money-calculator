@@ -1,0 +1,19 @@
+<div class="marg-top-30">
+  <h3>Transactions</h3>
+  <table class="ui collapsing celled table">
+    <thead>
+      <tr>
+        <th>From</th>
+        <th>To</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of (transactions$ | async)">
+        <td>{{ transaction.from }}</td>
+        <td>{{ transaction.to }}</td>
+        <td>{{ transaction.amount | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

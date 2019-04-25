@@ -119,7 +119,7 @@ export class SelectComponent extends AbstractValueAccessor<string[] | string>
   }
 
   identify(_, item) {
-    return item.id;
+    return item.value;
   }
 
   isValueEmpty(value) {

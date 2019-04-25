@@ -8,6 +8,8 @@ import { IPayment, isValid as isPaymentValid } from '../model/payment';
 import { IPerson, isValid as isPersonValid } from '../model/person';
 import { createSelector } from '@ngrx/store';
 import { ISummary } from '../model/summary';
+import { ITransaction } from '../model/transaction';
+import { min } from '../utility/array';
 
 export const getPaymentState: (state: AppState) => IPayment[] = state =>
   state.payments;
@@ -67,5 +69,35 @@ export const getSummary = createSelector(
     }
 
     return summaries;
+  }
+);
+
+export const getTransactions = createSelector(
+  getSummary,
+  summaries => {
+    const transactions: ITransaction[] = [];
+
+    const minBalanceSummary = min(summaries, 'balance');
+
+    for (const summary of summaries) {
+      if (summary.balance === 0 || summary === minBalanceSummary) {
+        continue;
+      }
+
+      if (summary.balance > 0) {
+        transactions.push({
+          from: summary.person,
+          to: minBalanceSummary.person,
+          amount: summary.balance,
+        });
+      } else {
+        transactions.push({
+          from: minBalanceSummary.person,
+          to: summary.person,
+          amount: Math.abs(summary.balance),
+        });
+      }
+    }
+    return transactions;
   }
 );

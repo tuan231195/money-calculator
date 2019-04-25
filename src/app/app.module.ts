@@ -10,9 +10,10 @@ import { environment } from 'src/environments/environment';
 import { reducers } from './reducers';
 import { PaymentComponent } from './payment/payment.component';
 import { SummaryComponent } from './summary/summary.component';
+import { TransactionsComponent } from './transactions/transactions.component';
 
 @NgModule({
-  declarations: [AppComponent, CostComponent, PaymentComponent, SummaryComponent],
+  declarations: [AppComponent, CostComponent, PaymentComponent, SummaryComponent, TransactionsComponent],
   imports: [
     BrowserModule,
     FormsModule,
