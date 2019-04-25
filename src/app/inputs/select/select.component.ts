@@ -1,6 +1,14 @@
 /// <reference types="jquery" />
 /// <reference types="semantic-ui" />
-import { Component, Input, AfterViewInit, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  AfterViewInit,
+  ElementRef,
+  OnChanges,
+  SimpleChanges,
+  SimpleChange,
+} from '@angular/core';
 import {
   makeValueAccessor,
   AbstractValueAccessor,
@@ -14,7 +22,7 @@ import { simpleEqual } from 'src/app/utility/array';
   providers: [makeValueAccessor(SelectComponent)],
 })
 export class SelectComponent extends AbstractValueAccessor<string[] | string>
-  implements AfterViewInit {
+  implements AfterViewInit, OnChanges {
   @Input() name;
   @Input() options: { name: string; value: string }[];
   @Input() allowMultiple: boolean;
@@ -25,6 +33,17 @@ export class SelectComponent extends AbstractValueAccessor<string[] | string>
 
   constructor(private elementRef: ElementRef) {
     super();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['options']) {
+      const simpleChange: SimpleChange = changes['options'];
+      if (simpleChange.currentValue) {
+        setTimeout(() => {
+          this.onValueUpdated(this.value);
+        });
+      }
+    }
   }
 
   ngAfterViewInit() {
