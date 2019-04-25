@@ -1,5 +1,16 @@
 <div class="marg-top-30">
   <h3>Transactions</h3>
+  <span>Receiver</span>
+  <div class="max-width-200 marg-top-10 marg-bottom-15">
+    <app-select
+      [name]="receiver"
+      [(ngModel)]="receiver"
+      (ngModelChange)="changeReceiver(receiver)"
+      [options]="receiverOptions"
+      [required]="true"
+      [placeholder]="'None'"
+    ></app-select>
+  </div>
   <table class="ui collapsing celled table">
     <thead>
       <tr>

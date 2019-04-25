@@ -21,6 +21,10 @@ export const getPeopleState: (state: AppState) => IPerson[] = (
   state: AppState
 ) => state.people;
 
+export const getReceiverState: (state: AppState) => number = (
+  state: AppState
+) => state.receiver;
+
 export const getSummary = createSelector(
   getPeopleState,
   getCategoryState,
@@ -33,6 +37,7 @@ export const getSummary = createSelector(
       }
       const summary: ISummary = {
         person: '#' + person.id + ' - ' + person.name,
+        personId: person.id,
         received: 0,
         paid: 0,
         mustPay: 0,
@@ -74,25 +79,30 @@ export const getSummary = createSelector(
 
 export const getTransactions = createSelector(
   getSummary,
-  summaries => {
+  getReceiverState,
+  (summaries, receiver) => {
     const transactions: ITransaction[] = [];
 
-    const minBalanceSummary = min(summaries, 'balance');
+    if (!receiver) {
+        return transactions;
+    }
+
+    const receiverSummary = summaries.find(summary => summary.personId === receiver);
 
     for (const summary of summaries) {
-      if (summary.balance === 0 || summary === minBalanceSummary) {
+      if (summary.balance === 0 || summary === receiverSummary) {
         continue;
       }
 
       if (summary.balance > 0) {
         transactions.push({
           from: summary.person,
-          to: minBalanceSummary.person,
+          to: receiverSummary.person,
           amount: summary.balance,
         });
       } else {
         transactions.push({
-          from: minBalanceSummary.person,
+          from: receiverSummary.person,
           to: summary.person,
           amount: Math.abs(summary.balance),
         });

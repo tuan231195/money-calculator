@@ -6,23 +6,27 @@ import { paymentsReducer } from './payment';
 import { IPerson } from '../model/person';
 import { IPayment } from '../model/payment';
 import { LoadState, actions } from '../actions/state';
+import { receiverReducer } from './receiver';
 
 export interface AppState {
   people: IPerson[];
   categories: ICategory[];
   payments: IPayment[];
+  receiver: number,
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   people: peopleReducer,
   categories: categoryReducer,
   payments: paymentsReducer,
+  receiver: receiverReducer,
 };
 
 export const initialState: AppState = {
   people: [],
   categories: [],
   payments: [],
+  receiver: null,
 };
 
 export function metaReducer(
