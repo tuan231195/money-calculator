@@ -1,15 +1,21 @@
 import { IPerson } from '../model/person';
 import { actions, EditPerson, DeletePerson } from '../actions/people';
-
+import { actions as stateActions } from '../actions/state';
 let count = 1;
 
 export function peopleReducer(state: IPerson[] = [], action): IPerson[] {
   switch (action.type) {
+    case stateActions.LOAD_STATE:
+      count = state.length + 1;
+      return state;
+    case stateActions.CLEAR_STATE:
+      count = 1;
+      return state;
     case actions.ADD_PERSON:
       return [
         ...state,
         {
-          id: count ++,
+          id: count++,
           name: '',
         },
       ];

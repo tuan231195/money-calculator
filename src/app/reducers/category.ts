@@ -5,11 +5,18 @@ import {
   DeleteCategory,
   AddCategory,
 } from '../actions/category';
+import { actions as stateActions } from '../actions/state';
 import { actions as personActions, DeletePerson } from '../actions/people';
 let count = 1;
 
 export function categoryReducer(state: ICategory[] = [], action): ICategory[] {
   switch (action.type) {
+    case stateActions.LOAD_STATE:
+      count = state.length + 1;
+      return state;
+    case stateActions.CLEAR_STATE:
+      count = 1;
+      return state;
     case categoryActions.ADD_CATEGORY:
       return [...state, { id: count++, ...(<AddCategory>action).category }];
     case categoryActions.DELETE_CATEGORY:

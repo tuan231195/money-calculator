@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription, combineLatest } from 'rxjs';
-import { IPerson } from '../model/person';
-import { IPayment } from '../model/payment';
-import { Store, createSelector } from '@ngrx/store';
+import { IPayment, isValid as isPaymentValid } from '../model/payment';
+import { Store } from '@ngrx/store';
 import { AppState } from '../reducers';
 import {
   EditPayment,
@@ -16,6 +15,7 @@ import { getPaymentState, getPeopleState } from '../reducers/selectors';
   templateUrl: './payment.component.html',
 })
 export class PaymentComponent implements OnInit, OnDestroy {
+  isPaymentValid = isPaymentValid;
   payments$: Observable<{ paymentMap: any; payerOptions: any }>;
   subscription: Subscription;
   payments: IPayment[];

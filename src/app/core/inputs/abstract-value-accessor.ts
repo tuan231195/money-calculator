@@ -1,9 +1,8 @@
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
-  NgModel,
 } from '@angular/forms';
-import { forwardRef, Provider, Self } from '@angular/core';
+import { forwardRef, Provider } from '@angular/core';
 
 export abstract class AbstractValueAccessor<T> implements ControlValueAccessor {
   isDisabled: boolean;

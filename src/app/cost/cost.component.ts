@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ICategory, getNumPayee } from '../model/category';
+import { ICategory, getNumPayee, isValid as isCategoryValid } from '../model/category';
 import { Store } from '@ngrx/store';
 import { AppState } from '../reducers/index';
 import { AddPerson, EditPerson } from '../actions/people';
 import { DeletePerson } from '../actions/people';
 import { DeleteCategory, AddCategory, EditCategory } from '../actions/category';
 import { Observable, Subscription } from 'rxjs';
-import { IPerson } from '../model/person';
+import { IPerson, isValid as isPersonValid } from '../model/person';
 import { IPayment } from '../model/payment';
 import {
   getPeopleState,
@@ -19,6 +19,8 @@ import {
   templateUrl: './cost.component.html',
 })
 export class CostComponent implements OnInit, OnDestroy {
+  isPersonValid = isPersonValid;
+  isCategoryValid = isCategoryValid;
   people$: Observable<IPerson[]>;
   categories$: Observable<ICategory[]>;
   peopleSubscription: Subscription;

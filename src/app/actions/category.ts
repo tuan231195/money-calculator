@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 import { ICategory } from '../model/category';
-import { AppState } from '../reducers/index';
 
 export const actions = {
   ADD_CATEGORY: 'add_category',

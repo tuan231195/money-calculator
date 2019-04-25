@@ -6,17 +6,26 @@
       <th>Payer</th>
       <th>Amount</th>
       <th *ngFor="let person of (people$ | async)">
-        <div
-          class="ui input labeled mini"
-          [ngClass]="{ error: !person.name.length }"
-        >
-          <label class="ui teal label"> {{ '#' + person.id }}</label>
-          <input
-            type="text"
-            placeholder="Person"
-            [(ngModel)]="person.name"
-            (blur)="editPerson(person)"
-          />
+        <div class="flex flex-align-center">
+          <span
+            class="flex"
+            data-tooltip="This person has errors"
+            *ngIf="!isPersonValid(person)"
+          >
+            <i class="icon warning inverted red circular tiny"></i>
+          </span>
+          <div
+            class="ui input labeled mini"
+            [ngClass]="{ error: !person.name.length }"
+          >
+            <label class="ui teal label"> {{ '#' + person.id }}</label>
+            <input
+              type="text"
+              placeholder="Person"
+              [(ngModel)]="person.name"
+              (blur)="editPerson(person)"
+            />
+          </div>
         </div>
       </th>
       <th>
@@ -33,15 +42,27 @@
   <tbody>
     <tr *ngFor="let category of categories">
       <td>
-        <div class="ui input labeled mini" [ngClass]="{ error: !category.name.length }">
-          <label class="ui yellow label"> {{ '#' + category.id }}</label>
+        <div class="flex flex-align-center">
+          <span
+            class="flex"
+            data-tooltip="This category has errors"
+            *ngIf="!isCategoryValid(category)"
+          >
+            <i class="icon warning red circular tiny inverted"></i>
+          </span>
+          <div
+            class="ui input labeled mini"
+            [ngClass]="{ error: !category.name.length }"
+          >
+            <label class="ui yellow label"> {{ '#' + category.id }}</label>
 
-          <input
-            type="text"
-            placeholder="Category"
-            [(ngModel)]="category.name"
-            (blur)="editCategory(category)"
-          />
+            <input
+              type="text"
+              placeholder="Category"
+              [(ngModel)]="category.name"
+              (blur)="editCategory(category)"
+            />
+          </div>
         </div>
       </td>
       <td>

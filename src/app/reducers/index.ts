@@ -33,11 +33,14 @@ export function metaReducer(
   reducer: ActionReducer<AppState>
 ): ActionReducer<AppState> {
   return function(state, action) {
+    let newState;
     switch (action.type) {
       case actions.CLEAR_STATE:
-        return initialState;
+        newState = initialState;
+        return reducer(newState, action);
       case actions.LOAD_STATE:
-        return (<LoadState>action).state;
+        newState = (<LoadState>action).state;
+        return reducer(newState, action);
       default:
         return reducer(state, action);
     }
