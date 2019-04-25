@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 import { IPayment } from '../model/payment';
-import { AppState } from '../reducers/index';
 
 export const actions = {
   ADD_PAYMENT: 'add_payment',
