@@ -1,6 +1,8 @@
 <div
   style="min-width: 100px"
   class="ui fluid search selection dropdown"
+  tabindex="0"
+  (blur)="blur()"
   [ngClass]="{ multiple: allowMultiple, error: hasError() }"
 >
   <i class="dropdown icon"></i>
@@ -9,8 +11,8 @@
   <div class="menu">
     <div
       class="item"
-      [attr.data-value]="option.value"
-      *ngFor="let option of options"
+      [attr.data-value]="getOptionValue(option.value)"
+      *ngFor="let option of options; trackBy: identify"
     >
       {{ option.name }}
     </div>

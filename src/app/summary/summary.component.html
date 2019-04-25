@@ -1,0 +1,32 @@
+<div class="marg-top-30">
+  <h3>Summary</h3>
+  <table class="ui collapsing celled table">
+    <thead>
+      <tr>
+        <th>Person</th>
+        <th>Paid</th>
+        <th>Received</th>
+        <th>Must Pay</th>
+        <th>Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let summary of (summaries$ | async)">
+        <td>{{ summary.person }}</td>
+        <td>{{ summary.paid | currency }}</td>
+        <td>{{ summary.received | currency }}</td>
+        <td>{{ summary.mustPay | currency }}</td>
+        <td>{{ summary.balance | currency }}</td>
+      </tr>
+    </tbody>
+    <tfoot class="full-width" *ngIf="total">
+      <tr>
+        <th>Total</th>
+        <th>{{ total.paid | currency }}</th>
+        <th>{{ total.received | currency }}</th>
+        <th>{{ total.mustPay | currency }}</th>
+        <th>{{ total.balance | currency }}</th>
+      </tr>
+    </tfoot>
+  </table>
+</div>

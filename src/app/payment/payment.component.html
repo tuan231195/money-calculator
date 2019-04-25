@@ -37,7 +37,7 @@
         <td>
           <div class="ui input mini" [ngClass]="{ error: payment.amount <= 0 }">
             <input
-              type="text"
+              type="number"
               placeholder="Amount"
               [(ngModel)]="payment.amount"
               (blur)="editPayment(payment)"
