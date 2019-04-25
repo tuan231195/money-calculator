@@ -24,6 +24,3 @@ export class EditPayment implements Action {
 }
 
 export type Actions = AddPayment | DeletePayment;
-
-export const getPaymentState: (state: AppState) => IPayment[] = state =>
-  state.payments;

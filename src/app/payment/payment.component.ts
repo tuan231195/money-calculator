@@ -4,13 +4,12 @@ import { IPerson } from '../model/person';
 import { IPayment } from '../model/payment';
 import { Store, createSelector } from '@ngrx/store';
 import { AppState } from '../reducers';
-import { getPeopleState } from '../actions/people';
 import {
-  getPaymentState,
   EditPayment,
   DeletePayment,
   AddPayment,
 } from '../actions/payment';
+import { getPaymentState, getPeopleState } from '../reducers/selectors';
 
 @Component({
   selector: 'app-payment',

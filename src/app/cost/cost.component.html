@@ -6,7 +6,11 @@
       <th>Payer</th>
       <th>Amount</th>
       <th *ngFor="let person of (people$ | async)">
-        <div class="ui input mini" [ngClass]="{ error: !person.name.length }">
+        <div
+          class="ui input labeled mini"
+          [ngClass]="{ error: !person.name.length }"
+        >
+          <label class="ui teal label"> {{ '#' + person.id }}</label>
           <input
             type="text"
             placeholder="Person"
@@ -29,7 +33,9 @@
   <tbody>
     <tr *ngFor="let category of categories">
       <td>
-        <div class="ui input mini" [ngClass]="{ error: !category.name.length }">
+        <div class="ui input labeled mini" [ngClass]="{ error: !category.name.length }">
+          <label class="ui yellow label"> {{ '#' + category.id }}</label>
+
           <input
             type="text"
             placeholder="Category"

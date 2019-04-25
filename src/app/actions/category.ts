@@ -24,6 +24,3 @@ export class EditCategory implements Action {
 }
 
 export type Actions = AddCategory | DeleteCategory;
-
-export const getCategoryState: (state: AppState) => ICategory[] = state =>
-  state.categories;

@@ -1,19 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ICategory } from '../model/category';
+import { ICategory, getNumPayee } from '../model/category';
 import { Store } from '@ngrx/store';
 import { AppState } from '../reducers/index';
-import { AddPerson, getPeopleState, EditPerson } from '../actions/people';
+import { AddPerson, EditPerson } from '../actions/people';
 import { DeletePerson } from '../actions/people';
-import {
-  DeleteCategory,
-  AddCategory,
-  getCategoryState,
-  EditCategory,
-} from '../actions/category';
+import { DeleteCategory, AddCategory, EditCategory } from '../actions/category';
 import { Observable, Subscription } from 'rxjs';
 import { IPerson } from '../model/person';
-import { getPaymentState } from '../actions/payment';
 import { IPayment } from '../model/payment';
+import {
+  getPeopleState,
+  getCategoryState,
+  getPaymentState,
+} from '../reducers/selectors';
 
 @Component({
   selector: 'app-cost',
@@ -59,8 +58,7 @@ export class CostComponent implements OnInit, OnDestroy {
   }
 
   getAmount(category, person) {
-    const numPayee = Object.values(category.payee).filter(value => value)
-      .length;
+    const numPayee = getNumPayee(category);
     if (!numPayee) {
       return 0;
     }

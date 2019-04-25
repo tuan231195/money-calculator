@@ -9,9 +9,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { reducers } from './reducers';
 import { PaymentComponent } from './payment/payment.component';
+import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
-  declarations: [AppComponent, CostComponent, PaymentComponent],
+  declarations: [AppComponent, CostComponent, PaymentComponent, SummaryComponent],
   imports: [
     BrowserModule,
     FormsModule,
