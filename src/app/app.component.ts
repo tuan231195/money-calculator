@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef, ApplicationRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  ApplicationRef,
+} from '@angular/core';
 import { AppState } from './reducers';
 import { Store } from '@ngrx/store';
 import * as firebase from 'firebase/app';
@@ -12,7 +17,11 @@ import * as shortuuid from 'short-uuid';
 export class AppComponent implements OnInit {
   value: any;
   loading: boolean;
-  constructor(private store: Store<AppState>, public appRef: ApplicationRef, private cd: ChangeDetectorRef) {}
+  constructor(
+    private store: Store<AppState>,
+    public appRef: ApplicationRef,
+    private cd: ChangeDetectorRef,
+  ) {}
 
   ngOnInit() {
     this.loading = true;

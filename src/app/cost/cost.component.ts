@@ -1,11 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   ICategory,
   getNumPayee,
   isValid as isCategoryValid,
 } from '../model/category';
-import { Store } from '@ngrx/store';
-import { AppState } from '../reducers/index';
 import { AddPerson, EditPerson } from '../actions/people';
 import { DeletePerson } from '../actions/people';
 import { DeleteCategory, AddCategory, EditCategory } from '../actions/category';
@@ -17,10 +21,13 @@ import {
   getCategoryState,
   getPaymentState,
 } from '../reducers/selectors';
+import { AppState } from '../reducers';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-cost',
   templateUrl: './cost.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CostComponent implements OnInit, OnDestroy {
   isPersonValid = isPersonValid;
@@ -29,13 +36,14 @@ export class CostComponent implements OnInit, OnDestroy {
   categories$: Observable<ICategory[]>;
   peopleSubscription: Subscription;
   payerOptions: { name: string; value: number }[];
-  categories: ICategory[];
+  categories: ICategory[] = [];
   categoriesSubscription: Subscription;
   payments$: Observable<IPayment[]>;
 
   paymentSubscription: Subscription;
-  payments: IPayment[];
-  constructor(private store: Store<AppState>) {}
+  payments: IPayment[] = [];
+  people: IPerson[] = [];
+  constructor(private store: Store<AppState>, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.people$ = this.store.select(getPeopleState);
@@ -47,14 +55,18 @@ export class CostComponent implements OnInit, OnDestroy {
         name: person.name,
         value: person.id,
       }));
+      this.people = people;
+      this.cd.detectChanges();
     });
 
     this.categoriesSubscription = this.categories$.subscribe(categories => {
       this.categories = categories;
+      this.cd.detectChanges();
     });
 
     this.paymentSubscription = this.payments$.subscribe(payments => {
       this.payments = payments;
+      this.cd.detectChanges();
     });
   }
 

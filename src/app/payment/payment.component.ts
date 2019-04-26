@@ -1,26 +1,29 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { Observable, Subscription, combineLatest } from 'rxjs';
 import { IPayment, isValid as isPaymentValid } from '../model/payment';
 import { Store } from '@ngrx/store';
 import { AppState } from '../reducers';
-import {
-  EditPayment,
-  DeletePayment,
-  AddPayment,
-} from '../actions/payment';
+import { EditPayment, DeletePayment, AddPayment } from '../actions/payment';
 import { getPaymentState, getPeopleState } from '../reducers/selectors';
 
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentComponent implements OnInit, OnDestroy {
   isPaymentValid = isPaymentValid;
   payments$: Observable<{ paymentMap: any; payerOptions: any }>;
   subscription: Subscription;
-  payments: IPayment[];
+  payments: IPayment[] = [];
   paymentMap = {};
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     const payments$ = this.store.select(getPaymentState);
@@ -43,6 +46,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
             ),
           };
         });
+        this.cd.detectChanges();
       }
     );
   }

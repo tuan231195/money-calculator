@@ -52,7 +52,6 @@ import { take } from 'rxjs/operators';
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {

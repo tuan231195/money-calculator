@@ -5,7 +5,7 @@
       <th>Name</th>
       <th>Payer</th>
       <th>Amount</th>
-      <th *ngFor="let person of (people$ | async)">
+      <th *ngFor="let person of people">
         <div class="flex flex-align-center">
           <span
             class="flex"
@@ -80,7 +80,7 @@
         </div>
       </td>
       <td
-        *ngFor="let person of (people$ | async)"
+        *ngFor="let person of people"
         [attr.data-tooltip]="getPersonCategoryTooltip(person, category)"
       >
         <div class="ui checkbox">
@@ -129,7 +129,7 @@
       <td></td>
       <td></td>
       <td
-        *ngFor="let person of (people$ | async)"
+        *ngFor="let person of people"
         [attr.data-tooltip]="getPersonTooltip(person)"
       >
         <button

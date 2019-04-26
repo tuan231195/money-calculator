@@ -6,6 +6,8 @@ import {
   OnChanges,
   SimpleChanges,
   SimpleChange,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import {
   makeValueAccessor,
@@ -18,6 +20,7 @@ import { simpleEqual } from 'src/app/utility/array';
   selector: 'app-select',
   templateUrl: './select.component.html',
   providers: [makeValueAccessor(SelectComponent)],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectComponent extends AbstractValueAccessor<string[] | string>
   implements AfterViewInit, OnChanges {
@@ -29,7 +32,7 @@ export class SelectComponent extends AbstractValueAccessor<string[] | string>
 
   select: any;
 
-  constructor(private elementRef: ElementRef) {
+  constructor(private elementRef: ElementRef, private cd: ChangeDetectorRef) {
     super();
   }
 
@@ -64,6 +67,7 @@ export class SelectComponent extends AbstractValueAccessor<string[] | string>
         } else {
           this.value = isEmpty(valueStr) ? null : this.getRealValue(valueStr);
         }
+        this.cd.detectChanges();
       },
     });
   }
