@@ -40,29 +40,23 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let category of categories">
+    <tr
+      *ngFor="let category of categories"
+      [ngClass]="{ error: !isCategoryValid(category) }"
+    >
       <td>
-        <div class="flex flex-align-center">
-          <span
-            class="flex"
-            data-tooltip="This category has errors"
-            *ngIf="!isCategoryValid(category)"
-          >
-            <i class="icon warning red circular tiny inverted"></i>
-          </span>
-          <div
-            class="ui input labeled mini"
-            [ngClass]="{ error: !category.name.length }"
-          >
-            <label class="ui yellow label"> {{ '#' + category.id }}</label>
+        <div
+          class="ui input labeled mini"
+          [ngClass]="{ error: !category.name.length }"
+        >
+          <label class="ui yellow label"> {{ '#' + category.id }}</label>
 
-            <input
-              type="text"
-              placeholder="Category"
-              [(ngModel)]="category.name"
-              (blur)="editCategory(category)"
-            />
-          </div>
+          <input
+            type="text"
+            placeholder="Category"
+            [(ngModel)]="category.name"
+            (blur)="editCategory(category)"
+          />
         </div>
       </td>
       <td>
@@ -89,14 +83,16 @@
         *ngFor="let person of (people$ | async)"
         [attr.data-tooltip]="getPersonCategoryTooltip(person, category)"
       >
-        <input
-          type="checkbox"
-          [(ngModel)]="category.payee[person.id]"
-          (ngModelChange)="editCategory(category)"
-        />
-        <label class="marg-left-10">{{
-          getAmount(category, person) | currency
-        }}</label>
+        <div class="ui checkbox">
+          <input
+            type="checkbox"
+            [(ngModel)]="category.payee[person.id]"
+            (ngModelChange)="editCategory(category)"
+          />
+          <label>{{
+            getAmount(category, person) | currency
+          }}</label>
+        </div>
       </td>
       <td [attr.data-tooltip]="getCategoryTooltip(category)">
         <span class="flex flex-align-center">

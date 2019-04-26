@@ -10,26 +10,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let payment of payments">
+      <tr
+        *ngFor="let payment of payments"
+        [ngClass]="{ error: !isPaymentValid(payment) }"
+      >
         <td>
-          <div class="flex flex-align-center">
-            <span
-              class="flex"
-              data-tooltip="This payment contains errors"
-              *ngIf="!isPaymentValid(payment)"
-            >
-              <i class="icon warning red circular tiny inverted"></i>
-            </span>
-            <app-select
-              *ngIf="paymentMap[payment.id].receivers"
-              [name]="receiver"
-              [(ngModel)]="payment.receiverId"
-              (ngModelChange)="editPayment(payment)"
-              [options]="paymentMap[payment.id].receivers"
-              [required]="true"
-              [placeholder]="'None'"
-            ></app-select>
-          </div>
+          <app-select
+            *ngIf="paymentMap[payment.id].receivers"
+            [name]="receiver"
+            [(ngModel)]="payment.receiverId"
+            (ngModelChange)="editPayment(payment)"
+            [options]="paymentMap[payment.id].receivers"
+            [required]="true"
+            [placeholder]="'None'"
+          ></app-select>
         </td>
         <td>
           <app-select
