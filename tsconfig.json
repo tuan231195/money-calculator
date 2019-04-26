@@ -18,6 +18,5 @@
       "es2018",
       "dom"
     ],
-    "types": ["node", "semantic-ui", "jquery"]
   }
 }

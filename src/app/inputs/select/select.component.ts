@@ -1,5 +1,3 @@
-/// <reference types="jquery" />
-/// <reference types="semantic-ui" />
 import {
   Component,
   Input,

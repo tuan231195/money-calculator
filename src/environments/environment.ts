@@ -1,17 +1,12 @@
+import { firebase } from './firebase';
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
   production: false,
-  firebase: {
-    apiKey: 'AIzaSyAPEyy7AAN79OV7BOQlfL_AoPwuZMri-eY',
-    authDomain: 'money-calculator-f7927.firebaseapp.com',
-    databaseURL: 'https://money-calculator-f7927.firebaseio.com',
-    projectId: 'money-calculator-f7927',
-    storageBucket: 'money-calculator-f7927.appspot.com',
-    messagingSenderId: '156331328325',
-  },
+  firebase,
+  hmr: false,
 };
 
 /*
