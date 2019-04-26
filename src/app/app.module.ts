@@ -3,14 +3,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import * as firebase from 'firebase/app';
 const config = {
-  apiKey: "AIzaSyAPEyy7AAN79OV7BOQlfL_AoPwuZMri-eY",
-  authDomain: "money-calculator-f7927.firebaseapp.com",
-  databaseURL: "https://money-calculator-f7927.firebaseio.com",
-  projectId: "money-calculator-f7927",
-  storageBucket: "money-calculator-f7927.appspot.com",
-  messagingSenderId: "156331328325"
+  apiKey: environment.firebase.apiKey,
+  authDomain: environment.firebase.authDomain,
+  databaseURL: environment.firebase.databaseURL,
+  projectId: environment.firebase.projectId,
+  storageBucket: environment.firebase.storageBucket,
+  messagingSenderId: environment.firebase.messagingSenderId,
 };
 import 'firebase/database';
+import 'firebase/auth';
 firebase.initializeApp(config);
 
 import { InputsModule } from './inputs/inputs.module';

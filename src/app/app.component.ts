@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AppState } from './reducers';
 import { Store } from '@ngrx/store';
 import * as firebase from 'firebase/app';
@@ -12,23 +12,38 @@ import * as shortuuid from 'short-uuid';
 export class AppComponent implements OnInit {
   value: any;
   loading: boolean;
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const dataId = urlParams.get('state');
-    if (dataId) {
-      this.loading = true;
-      firebase
-        .database()
-        .ref(dataId)
-        .once('value')
-        .then(snapshot => {
-          this.store.dispatch(new LoadState(snapshot.val()));
-        })
-        .catch(() => alert('Failed to load data'))
-        .finally(() => (this.loading = false));
-    }
+    this.loading = true;
+    firebase
+      .auth()
+      .signInAnonymously()
+      .then(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const dataId = urlParams.get('state');
+        if (dataId) {
+          return firebase
+            .database()
+            .ref(dataId)
+            .once('value')
+            .then(snapshot => {
+              this.store.dispatch(new LoadState(snapshot.val()));
+            })
+            .catch(error => {
+              console.error(error);
+              alert('Failed to load data');
+            });
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        alert('Failed to load app');
+      })
+      .finally(() => {
+        this.loading = false;
+        this.cd.detectChanges();
+      });
   }
 
   clearData() {
