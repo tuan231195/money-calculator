@@ -13,7 +13,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "npm run build:prod && surge dist/money-calculator $npm_package_config_surgeProject"
+    "deploy": "npm run build && surge dist/money-calculator $npm_package_config_surgeProject"
   },
   "private": true,
   "dependencies": {
