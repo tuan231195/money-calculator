@@ -1,5 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ICategory, getNumPayee, isValid as isCategoryValid } from '../model/category';
+import {
+  ICategory,
+  getNumPayee,
+  isValid as isCategoryValid,
+} from '../model/category';
 import { Store } from '@ngrx/store';
 import { AppState } from '../reducers/index';
 import { AddPerson, EditPerson } from '../actions/people';
@@ -71,6 +75,20 @@ export class CostComponent implements OnInit, OnDestroy {
   }
   addPerson() {
     this.store.dispatch(new AddPerson());
+  }
+
+  getPersonCategoryTooltip(person, category) {
+    return `Person: #${person.id} - ${person.name},
+    Category: #${category.id} - ${category.name}
+    `;
+  }
+
+  getPersonTooltip(person) {
+    return `Person: #${person.id} - ${person.name}`;
+  }
+
+  getCategoryTooltip(category) {
+    return `Category: #${category.id} - ${category.name}`;
   }
 
   tickCategory(category) {

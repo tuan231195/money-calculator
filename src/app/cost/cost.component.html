@@ -85,7 +85,10 @@
           />
         </div>
       </td>
-      <td *ngFor="let person of (people$ | async)">
+      <td
+        *ngFor="let person of (people$ | async)"
+        [attr.data-tooltip]="getPersonCategoryTooltip(person, category)"
+      >
         <input
           type="checkbox"
           [(ngModel)]="category.payee[person.id]"
@@ -95,25 +98,26 @@
           getAmount(category, person) | currency
         }}</label>
       </td>
-      <td>
-        <button
-          (click)="tickCategory(category)"
-          class="ui positive icon button mini"
-        >
-          <i class="check square icon"></i>
-        </button>
-        <button
-          (click)="untickCategory(category)"
-          class="ui secondary icon button mini"
-        >
-          <i class="check square outline icon"></i>
-        </button>
-        <button
-          (click)="removeCategory(category)"
-          class="ui negative icon button mini"
-        >
-          <i class="remove icon"></i>
-        </button>
+      <td [attr.data-tooltip]="getCategoryTooltip(category)">
+        <span class="flex flex-align-center">
+          <button
+            (click)="tickCategory(category)"
+            class="ui positive icon button mini"
+          >
+            <i class="check square icon"></i>
+          </button>
+          <button
+            (click)="untickCategory(category)"
+            class="ui secondary icon button mini"
+          >
+            <i class="check square outline icon"></i>
+          </button>
+          <button
+            (click)="removeCategory(category)"
+            class="ui negative icon button mini"
+          >
+            <i class="remove icon"></i></button
+        ></span>
       </td>
     </tr>
     <tr>
@@ -128,7 +132,10 @@
       </td>
       <td></td>
       <td></td>
-      <td *ngFor="let person of (people$ | async)">
+      <td
+        *ngFor="let person of (people$ | async)"
+        [attr.data-tooltip]="getPersonTooltip(person)"
+      >
         <button
           *ngIf="canRemove(person)"
           (click)="removePerson(person)"
