@@ -45,3 +45,11 @@
     padding-bottom: #{$dimen}px;
   }
 }
+
+.full-height {
+  height: 100%;
+}
+
+.full-screen {
+  height: 100vh !important;
+}

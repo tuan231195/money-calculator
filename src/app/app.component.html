@@ -1,12 +1,21 @@
-<div class="ui fluid marg-top-50 marg-left-50">
-  <div class="marg-bottom-30">
-    <button class="ui labeled icon negative button" (click)="clearData()">
-      <i class="warning sign icon"></i>
-      Clear data
-    </button>
+<div class="ui fluid pad-top-50 pad-left-50">
+  <div class="ui active inverted dimmer full-screen" *ngIf="loading">
+    <div class="ui text loader">Loading</div>
   </div>
-  <app-cost></app-cost>
-  <app-payment></app-payment>
-  <app-summary></app-summary>
-  <app-transactions></app-transactions>
+  <div *ngIf="!loading">
+      <div class="marg-bottom-30">
+          <button class="ui labeled icon negative button" (click)="clearData()">
+            <i class="warning sign icon"></i>
+            Clear data
+          </button>
+          <button class="ui labeled icon positive button" (click)="saveData()">
+            <i class="save outline icon"></i>
+            Save data
+          </button>
+        </div>
+        <app-cost></app-cost>
+        <app-payment></app-payment>
+        <app-summary></app-summary>
+        <app-transactions></app-transactions>
+  </div>
 </div>

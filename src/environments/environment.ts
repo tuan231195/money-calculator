@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyAPEyy7AAN79OV7BOQlfL_AoPwuZMri-eY',
+    databaseURL: 'https://money-calculator-f7927.firebaseio.com',
+    projectId: 'money-calculator-f7927',
+  }
 };
 
 /*
